@@ -2,6 +2,8 @@
 
 A terminal-based interface for Turkish prayer times, accessible via curl from anywhere.
 
+<a href="https://qubixq.github.io/turkish-prayer-times/index.html">View Main page</a>
+
 ## Usage
 
 Get prayer times for any Turkish city using curl:
@@ -11,7 +13,10 @@ curl https://qubixq.github.io/turkish-prayer-times/ankara.txt
 curl https://qubixq.github.io/turkish-prayer-times/istanbul.txt
 curl https://qubixq.github.io/turkish-prayer-times/izmir.txt
 ```
-
+- You can see all cities with this command
+```bash
+curl -s https://qubixq.github.io/turkish-prayer-times/index.txt
+```
 ## Features
 
 - **81 Turkish cities** supported
