@@ -96,7 +96,6 @@ PRAYER_NAMES = ["İmsak", "Güneş", "Öğle", "İkindi", "Akşam", "Yatsı"]
 
 def get_prayer_times(latitude: float, longitude: float) -> Dict:
     """Fetch prayer times from AlAdhan API using coordinates"""
-    # Using method 13 (Turkey - Diyanet İşleri Başkanlığı)
     url = f"https://api.aladhan.com/v1/timings"
     params = {
         'latitude': latitude,
@@ -120,58 +119,10 @@ def get_prayer_times(latitude: float, longitude: float) -> Dict:
         print(f"Error fetching data for coordinates ({latitude}, {longitude}): {e}")
         return {}
 
-def parse_time(time_str: str) -> datetime:
-    """Parse time string to datetime object"""
-    turkey_tz = pytz.timezone('Europe/Istanbul')
-    today = datetime.now(turkey_tz).date()
-    # Remove timezone info if present (e.g., "05:30 (+03)" -> "05:30")
-    time_clean = time_str.split(' ')[0]
-    time_obj = datetime.strptime(time_clean, "%H:%M").time()
-    return turkey_tz.localize(datetime.combine(today, time_obj))
-
-def get_current_prayer_info(prayer_times: List[str]) -> Tuple[str, int, int]:
-    """Determine current prayer period and calculate elapsed/remaining time"""
-    turkey_tz = pytz.timezone('Europe/Istanbul')
-    now = datetime.now(turkey_tz)
-    
-    parsed_times = [parse_time(time) for time in prayer_times]
-    
-    # Find current prayer period
-    current_prayer = "Yatsı"
-    current_index = 5
-    
-    for i, prayer_time in enumerate(parsed_times):
-        if now >= prayer_time:
-            current_prayer = PRAYER_NAMES[i]
-            current_index = i
-        else:
-            break
-    
-    # Calculate elapsed time since current prayer
-    current_prayer_time = parsed_times[current_index]
-    elapsed = now - current_prayer_time
-    elapsed_minutes = max(0, int(elapsed.total_seconds() / 60))
-    
-    # Calculate remaining time to next prayer
-    if current_index < 5:
-        next_prayer_time = parsed_times[current_index + 1]
-        remaining = next_prayer_time - now
-        remaining_minutes = max(0, int(remaining.total_seconds() / 60))
-    else:
-        # Next prayer is İmsak of next day
-        tomorrow_imsak = parsed_times[0] + timedelta(days=1)
-        remaining = tomorrow_imsak - now
-        remaining_minutes = max(0, int(remaining.total_seconds() / 60))
-    
-    return current_prayer, elapsed_minutes, remaining_minutes
-
 def format_output(city_name: str, prayer_data: Dict) -> str:
-    """Format prayer times as terminal-friendly output"""
+    """Format prayer times as terminal-friendly output - only prayer times"""
     if not prayer_data:
         return f"Error: Unable to fetch prayer times for {city_name.title()}"
-    
-    turkey_tz = pytz.timezone('Europe/Istanbul')
-    current_time = datetime.now(turkey_tz)
     
     # Map AlAdhan API response to our prayer names
     times = [
@@ -186,22 +137,15 @@ def format_output(city_name: str, prayer_data: Dict) -> str:
     # Clean times (remove timezone info)
     times = [time.split(' ')[0] for time in times]
     
-    current_prayer, elapsed, remaining = get_current_prayer_info(times)
-    
-    # Build output
+    # Build simple output - just prayer times
     output = []
     output.append("┌─────────────────────────────────────┐")
     output.append(f"│ {city_name.upper().center(35)} │")
     output.append("├─────────────────────────────────────┤")
-    output.append(f"│ {current_time.strftime('%d.%m.%Y %H:%M').center(35)} │")
-    output.append("├─────────────────────────────────────┤")
     
     for i, (prayer, time) in enumerate(zip(PRAYER_NAMES, times)):
-        marker = "►" if prayer == current_prayer else " "
-        output.append(f"│ {marker} {prayer:<8} {time:>8}           │")
+        output.append(f"│   {prayer:<8} {time:>8}           │")
     
-    output.append("├─────────────────────────────────────┤")
-    output.append(f"│ {current_prayer}: {elapsed}dk geçti, {remaining}dk kaldı │")
     output.append("└─────────────────────────────────────┘")
     
     return "\n".join(output)
@@ -225,6 +169,7 @@ def main():
     print("Generating Turkish Prayer Times TUI files...")
     print(f"Total cities: {len(TURKISH_CITIES)}")
     print("Using AlAdhan API with Turkey Diyanet method...")
+    print("Simple format - only prayer times...")
     
     for city_name, coordinates in TURKISH_CITIES.items():
         generate_city_file(city_name, coordinates)
