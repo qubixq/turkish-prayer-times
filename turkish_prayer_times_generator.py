@@ -1,51 +1,132 @@
 #!/usr/bin/env python3
+# turkish_prayer_times_generator.py - Main script for generating prayer times
 
 import requests
 import json
-import os
 from datetime import datetime, timedelta
 import pytz
 from typing import Dict, List, Tuple
 
-# Turkish cities mapping (ID: Name)
+# Turkish cities with their coordinates (latitude, longitude)
 TURKISH_CITIES = {
-    1: "adana", 2: "adiyaman", 3: "afyonkarahisar", 4: "agri", 5: "amasya",
-    6: "ankara", 7: "antalya", 8: "artvin", 9: "aydin", 10: "balikesir",
-    11: "bilecik", 12: "bingol", 13: "bitlis", 14: "bolu", 15: "burdur",
-    16: "bursa", 17: "canakkale", 18: "cankiri", 19: "corum", 20: "denizli",
-    21: "diyarbakir", 22: "edirne", 23: "elazig", 24: "erzincan", 25: "erzurum",
-    26: "eskisehir", 27: "gaziantep", 28: "giresun", 29: "gumushane", 30: "hakkari",
-    31: "hatay", 32: "isparta", 33: "mersin", 34: "istanbul", 35: "izmir",
-    36: "kars", 37: "kastamonu", 38: "kayseri", 39: "kirklareli", 40: "kirsehir",
-    41: "kocaeli", 42: "konya", 43: "kutahya", 44: "malatya", 45: "manisa",
-    46: "kahramanmaras", 47: "mardin", 48: "mugla", 49: "mus", 50: "nevsehir",
-    51: "nigde", 52: "ordu", 53: "rize", 54: "sakarya", 55: "samsun",
-    56: "siirt", 57: "sinop", 58: "sivas", 59: "tekirdag", 60: "tokat",
-    61: "trabzon", 62: "tunceli", 63: "sanliurfa", 64: "usak", 65: "van",
-    66: "yozgat", 67: "zonguldak", 68: "aksaray", 69: "bayburt", 70: "karaman",
-    71: "kirikkale", 72: "batman", 73: "sirnak", 74: "bartin", 75: "ardahan",
-    76: "igdir", 77: "yalova", 78: "karabuk", 79: "kilis", 80: "osmaniye",
-    81: "duzce"
+    "adana": (37.0000, 35.3213),
+    "adiyaman": (37.7648, 38.2786),
+    "afyonkarahisar": (38.7507, 30.5567),
+    "agri": (39.7191, 43.0503),
+    "amasya": (40.6499, 35.8353),
+    "ankara": (39.9334, 32.8597),
+    "antalya": (36.8969, 30.7133),
+    "artvin": (41.1828, 41.8183),
+    "aydin": (37.8560, 27.8416),
+    "balikesir": (39.6484, 27.8826),
+    "bilecik": (40.1553, 29.9833),
+    "bingol": (38.8846, 40.4939),
+    "bitlis": (42.1069, 42.1133),
+    "bolu": (40.7360, 31.6061),
+    "burdur": (37.7268, 30.2900),
+    "bursa": (40.1885, 29.0610),
+    "canakkale": (40.1553, 26.4142),
+    "cankiri": (40.6013, 33.6134),
+    "corum": (40.5506, 34.9556),
+    "denizli": (37.7765, 29.0864),
+    "diyarbakir": (37.9144, 40.2306),
+    "edirne": (41.6771, 26.5557),
+    "elazig": (38.6810, 39.2264),
+    "erzincan": (39.7500, 39.5000),
+    "erzurum": (39.9000, 41.2700),
+    "eskisehir": (39.7767, 30.5206),
+    "gaziantep": (37.0594, 37.3825),
+    "giresun": (40.9128, 38.3895),
+    "gumushane": (40.4386, 39.5086),
+    "hakkari": (37.5744, 43.7408),
+    "hatay": (36.4018, 36.3498),
+    "isparta": (37.7648, 30.5566),
+    "mersin": (36.8000, 34.6333),
+    "istanbul": (41.0082, 28.9784),
+    "izmir": (38.4237, 27.1428),
+    "kars": (40.6013, 43.0975),
+    "kastamonu": (41.3887, 33.7827),
+    "kayseri": (38.7312, 35.4787),
+    "kirklareli": (41.7333, 27.2167),
+    "kirsehir": (39.1425, 34.1709),
+    "kocaeli": (40.8533, 29.8815),
+    "konya": (37.8667, 32.4833),
+    "kutahya": (39.4242, 29.9833),
+    "malatya": (38.3552, 38.3095),
+    "manisa": (38.6191, 27.4289),
+    "kahramanmaras": (37.5858, 36.9371),
+    "mardin": (37.3212, 40.7245),
+    "mugla": (37.2153, 28.3636),
+    "mus": (38.9462, 41.7539),
+    "nevsehir": (38.6939, 34.6857),
+    "nigde": (37.9667, 34.6833),
+    "ordu": (40.9839, 37.8764),
+    "rize": (41.0201, 40.5234),
+    "sakarya": (40.6940, 30.4358),
+    "samsun": (41.2867, 36.3300),
+    "siirt": (37.9333, 41.9500),
+    "sinop": (42.0231, 35.1531),
+    "sivas": (39.7477, 37.0179),
+    "tekirdag": (40.9833, 27.5167),
+    "tokat": (40.3167, 36.5500),
+    "trabzon": (41.0015, 39.7178),
+    "tunceli": (39.3074, 39.4388),
+    "sanliurfa": (37.1591, 38.7969),
+    "usak": (38.6823, 29.4082),
+    "van": (38.4891, 43.4089),
+    "yozgat": (39.8181, 34.8147),
+    "zonguldak": (41.4564, 31.7987),
+    "aksaray": (38.3687, 34.0370),
+    "bayburt": (40.2587, 40.2249),
+    "karaman": (37.1759, 33.2287),
+    "kirikkale": (39.8468, 33.5153),
+    "batman": (37.8812, 41.1351),
+    "sirnak": (37.4187, 42.4918),
+    "bartin": (41.5811, 32.4610),
+    "ardahan": (41.1105, 42.7022),
+    "igdir": (39.8880, 44.0448),
+    "yalova": (40.6500, 29.2667),
+    "karabuk": (41.2061, 32.6204),
+    "kilis": (36.7184, 37.1212),
+    "osmaniye": (37.2130, 36.1763),
+    "duzce": (40.8438, 31.1565)
 }
 
 PRAYER_NAMES = ["İmsak", "Güneş", "Öğle", "İkindi", "Akşam", "Yatsı"]
 
-def get_prayer_times(city_id: int) -> Dict:
-    """Fetch prayer times from Diyanet API"""
-    url = f"https://ezanvakti.herokuapp.com/vakitler/{city_id}"
+def get_prayer_times(latitude: float, longitude: float) -> Dict:
+    """Fetch prayer times from AlAdhan API using coordinates"""
+    # Using method 13 (Turkey - Diyanet İşleri Başkanlığı)
+    url = f"https://api.aladhan.com/v1/timings"
+    params = {
+        'latitude': latitude,
+        'longitude': longitude,
+        'method': 13,  # Turkey method
+        'timezone': 'Europe/Istanbul'
+    }
+    
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, params=params, timeout=10)
         response.raise_for_status()
-        return response.json()
+        data = response.json()
+        
+        if data.get('code') == 200 and 'data' in data:
+            return data['data']['timings']
+        else:
+            print(f"API returned error: {data}")
+            return {}
+            
     except Exception as e:
-        print(f"Error fetching data for city {city_id}: {e}")
+        print(f"Error fetching data for coordinates ({latitude}, {longitude}): {e}")
         return {}
 
 def parse_time(time_str: str) -> datetime:
     """Parse time string to datetime object"""
     turkey_tz = pytz.timezone('Europe/Istanbul')
     today = datetime.now(turkey_tz).date()
-    time_obj = datetime.strptime(time_str, "%H:%M").time()
+    # Remove timezone info if present (e.g., "05:30 (+03)" -> "05:30")
+    time_clean = time_str.split(' ')[0]
+    time_obj = datetime.strptime(time_clean, "%H:%M").time()
     return turkey_tz.localize(datetime.combine(today, time_obj))
 
 def get_current_prayer_info(prayer_times: List[str]) -> Tuple[str, int, int]:
@@ -58,8 +139,6 @@ def get_current_prayer_info(prayer_times: List[str]) -> Tuple[str, int, int]:
     # Find current prayer period
     current_prayer = "Yatsı"
     current_index = 5
-    elapsed_minutes = 0
-    remaining_minutes = 0
     
     for i, prayer_time in enumerate(parsed_times):
         if now >= prayer_time:
@@ -71,18 +150,18 @@ def get_current_prayer_info(prayer_times: List[str]) -> Tuple[str, int, int]:
     # Calculate elapsed time since current prayer
     current_prayer_time = parsed_times[current_index]
     elapsed = now - current_prayer_time
-    elapsed_minutes = int(elapsed.total_seconds() / 60)
+    elapsed_minutes = max(0, int(elapsed.total_seconds() / 60))
     
     # Calculate remaining time to next prayer
     if current_index < 5:
         next_prayer_time = parsed_times[current_index + 1]
         remaining = next_prayer_time - now
-        remaining_minutes = int(remaining.total_seconds() / 60)
+        remaining_minutes = max(0, int(remaining.total_seconds() / 60))
     else:
         # Next prayer is İmsak of next day
         tomorrow_imsak = parsed_times[0] + timedelta(days=1)
         remaining = tomorrow_imsak - now
-        remaining_minutes = int(remaining.total_seconds() / 60)
+        remaining_minutes = max(0, int(remaining.total_seconds() / 60))
     
     return current_prayer, elapsed_minutes, remaining_minutes
 
@@ -94,40 +173,44 @@ def format_output(city_name: str, prayer_data: Dict) -> str:
     turkey_tz = pytz.timezone('Europe/Istanbul')
     current_time = datetime.now(turkey_tz)
     
-    # Extract prayer times
+    # Map AlAdhan API response to our prayer names
     times = [
-        prayer_data.get('imsak', '00:00'),
-        prayer_data.get('gunes', '00:00'),
-        prayer_data.get('ogle', '00:00'),
-        prayer_data.get('ikindi', '00:00'),
-        prayer_data.get('aksam', '00:00'),
-        prayer_data.get('yatsi', '00:00')
+        prayer_data.get('Imsak', '00:00'),
+        prayer_data.get('Sunrise', '00:00'), 
+        prayer_data.get('Dhuhr', '00:00'),
+        prayer_data.get('Asr', '00:00'),
+        prayer_data.get('Maghrib', '00:00'),
+        prayer_data.get('Isha', '00:00')
     ]
+    
+    # Clean times (remove timezone info)
+    times = [time.split(' ')[0] for time in times]
     
     current_prayer, elapsed, remaining = get_current_prayer_info(times)
     
     # Build output
     output = []
-    output.append(f"┌─────────────────────────────────────┐")
+    output.append("┌─────────────────────────────────────┐")
     output.append(f"│ {city_name.upper().center(35)} │")
-    output.append(f"├─────────────────────────────────────┤")
+    output.append("├─────────────────────────────────────┤")
     output.append(f"│ {current_time.strftime('%d.%m.%Y %H:%M').center(35)} │")
-    output.append(f"├─────────────────────────────────────┤")
+    output.append("├─────────────────────────────────────┤")
     
     for i, (prayer, time) in enumerate(zip(PRAYER_NAMES, times)):
         marker = "►" if prayer == current_prayer else " "
         output.append(f"│ {marker} {prayer:<8} {time:>8}           │")
     
-    output.append(f"├─────────────────────────────────────┤")
+    output.append("├─────────────────────────────────────┤")
     output.append(f"│ {current_prayer}: {elapsed}dk geçti, {remaining}dk kaldı │")
-    output.append(f"└─────────────────────────────────────┘")
+    output.append("└─────────────────────────────────────┘")
     
     return "\n".join(output)
 
-def generate_city_file(city_id: int, city_name: str):
+def generate_city_file(city_name: str, coordinates: Tuple[float, float]):
     """Generate prayer times file for a city"""
     print(f"Processing {city_name.title()}...")
-    prayer_data = get_prayer_times(city_id)
+    latitude, longitude = coordinates
+    prayer_data = get_prayer_times(latitude, longitude)
     
     if prayer_data:
         content = format_output(city_name, prayer_data)
@@ -141,9 +224,10 @@ def main():
     """Generate all city prayer time files"""
     print("Generating Turkish Prayer Times TUI files...")
     print(f"Total cities: {len(TURKISH_CITIES)}")
+    print("Using AlAdhan API with Turkey Diyanet method...")
     
-    for city_id, city_name in TURKISH_CITIES.items():
-        generate_city_file(city_id, city_name)
+    for city_name, coordinates in TURKISH_CITIES.items():
+        generate_city_file(city_name, coordinates)
     
     print("\nAll files generated successfully!")
 
