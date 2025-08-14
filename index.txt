@@ -1,0 +1,246 @@
+# Adana:
+curl https://qubixq.github.io/turkish-prayer-times/adana.txt
+
+# Adıyaman:
+curl https://qubixq.github.io/turkish-prayer-times/adiyaman.txt
+
+# Afyonkarahisar:
+curl https://qubixq.github.io/turkish-prayer-times/afyonkarahisar.txt
+
+# Ağrı:
+curl https://qubixq.github.io/turkish-prayer-times/agri.txt
+
+# Amasya:
+curl https://qubixq.github.io/turkish-prayer-times/amasya.txt
+
+# Ankara:
+curl https://qubixq.github.io/turkish-prayer-times/ankara.txt
+
+# Antalya:
+curl https://qubixq.github.io/turkish-prayer-times/antalya.txt
+
+# Artvin:
+curl https://qubixq.github.io/turkish-prayer-times/artvin.txt
+
+# Aydın:
+curl https://qubixq.github.io/turkish-prayer-times/aydin.txt
+
+# Balıkesir:
+curl https://qubixq.github.io/turkish-prayer-times/balikesir.txt
+
+# Bilecik:
+curl https://qubixq.github.io/turkish-prayer-times/bilecik.txt
+
+# Bingöl:
+curl https://qubixq.github.io/turkish-prayer-times/bingol.txt
+
+# Bitlis:
+curl https://qubixq.github.io/turkish-prayer-times/bitlis.txt
+
+# Bolu:
+curl https://qubixq.github.io/turkish-prayer-times/bolu.txt
+
+# Burdur:
+curl https://qubixq.github.io/turkish-prayer-times/burdur.txt
+
+# Bursa:
+curl https://qubixq.github.io/turkish-prayer-times/bursa.txt
+
+# Çanakkale:
+curl https://qubixq.github.io/turkish-prayer-times/canakkale.txt
+
+# Çankırı:
+curl https://qubixq.github.io/turkish-prayer-times/cankiri.txt
+
+# Çorum:
+curl https://qubixq.github.io/turkish-prayer-times/corum.txt
+
+# Denizli:
+curl https://qubixq.github.io/turkish-prayer-times/denizli.txt
+
+# Diyarbakır:
+curl https://qubixq.github.io/turkish-prayer-times/diyarbakir.txt
+
+# Edirne:
+curl https://qubixq.github.io/turkish-prayer-times/edirne.txt
+
+# Elazığ:
+curl https://qubixq.github.io/turkish-prayer-times/elazig.txt
+
+# Erzincan:
+curl https://qubixq.github.io/turkish-prayer-times/erzincan.txt
+
+# Erzurum:
+curl https.qubixq.github.io/turkish-prayer-times/erzurum.txt
+
+# Eskişehir:
+curl https://qubixq.github.io/turkish-prayer-times/eskisehir.txt
+
+# Gaziantep:
+curl https://qubixq.github.io/turkish-prayer-times/gaziantep.txt
+
+# Giresun:
+curl https://qubixq.github.io/turkish-prayer-times/giresun.txt
+
+# Gümüşhane:
+curl https://qubixq.github.io/turkish-prayer-times/gumushane.txt
+
+# Hakkâri:
+curl https://qubixq.github.io/turkish-prayer-times/hakkari.txt
+
+# Hatay:
+curl https://qubixq.github.io/turkish-prayer-times/hatay.txt
+
+# Isparta:
+curl https://qubixq.github.io/turkish-prayer-times/isparta.txt
+
+# Mersin:
+curl https://qubixq.github.io/turkish-prayer-times/mersin.txt
+
+# İstanbul:
+curl https://qubixq.github.io/turkish-prayer-times/istanbul.txt
+
+# İzmir:
+curl https://qubixq.github.io/turkish-prayer-times/izmir.txt
+
+# Kars:
+curl https://qubixq.github.io/turkish-prayer-times/kars.txt
+
+# Kastamonu:
+curl https://qubixq.github.io/turkish-prayer-times/kastamonu.txt
+
+# Kayseri:
+curl https://qubixq.github.io/turkish-prayer-times/kayseri.txt
+
+# Kırklareli:
+curl https://qubixq.github.io/turkish-prayer-times/kirklareli.txt
+
+# Kırşehir:
+curl https://qubixq.github.io/turkish-prayer-times/kirsehir.txt
+
+# Kocaeli:
+curl https://qubixq.github.io/turkish-prayer-times/kocaeli.txt
+
+# Konya:
+curl https://qubixq.github.io/turkish-prayer-times/konya.txt
+
+# Kütahya:
+curl https://qubixq.github.io/turkish-prayer-times/kutahya.txt
+
+# Malatya:
+curl https://qubixq.github.io/turkish-prayer-times/malatya.txt
+
+# Manisa:
+curl https://qubixq.github.io/turkish-prayer-times/manisa.txt
+
+# Kahramanmaraş:
+curl https://qubixq.github.io/turkish-prayer-times/kahramanmaras.txt
+
+# Mardin:
+curl https://qubixq.github.io/turkish-prayer-times/mardin.txt
+
+# Muğla:
+curl https://qubixq.github.io/turkish-prayer-times/mugla.txt
+
+# Muş:
+curl https://qubixq.github.io/turkish-prayer-times/mus.txt
+
+# Nevşehir:
+curl https://qubixq.github.io/turkish-prayer-times/nevsehir.txt
+
+# Niğde:
+curl https://qubixq.github.io/turkish-prayer-times/nigde.txt
+
+# Ordu:
+curl https://qubixq.github.io/turkish-prayer-times/ordu.txt
+
+# Rize:
+curl https://qubixq.github.io/turkish-prayer-times/rize.txt
+
+# Sakarya:
+curl https://qubixq.github.io/turkish-prayer-times/sakarya.txt
+
+# Samsun:
+curl https://qubixq.github.io/turkish-prayer-times/samsun.txt
+
+# Siirt:
+curl https://qubixq.github.io/turkish-prayer-times/siirt.txt
+
+# Sinop:
+curl https://qubixq.github.io/turkish-prayer-times/sinop.txt
+
+# Sivas:
+curl https://qubixq.github.io/turkish-prayer-times/sivas.txt
+
+# Tekirdağ:
+curl https://qubixq.github.io/turkish-prayer-times/tekirdag.txt
+
+# Tokat:
+curl https://qubixq.github.io/turkish-prayer-times/tokat.txt
+
+# Trabzon:
+curl https://qubixq.github.io/turkish-prayer-times/trabzon.txt
+
+# Tunceli:
+curl https://qubixq.github.io/turkish-prayer-times/tunceli.txt
+
+# Şanlıurfa:
+curl https://qubixq.github.io/turkish-prayer-times/sanliurfa.txt
+
+# Uşak:
+curl https://qubixq.github.io/turkish-prayer-times/usak.txt
+
+# Van:
+curl https://qubixq.github.io/turkish-prayer-times/van.txt
+
+# Yozgat:
+curl https://qubixq.github.io/turkish-prayer-times/yozgat.txt
+
+# Zonguldak:
+curl https://qubixq.github.io/turkish-prayer-times/zonguldak.txt
+
+# Aksaray:
+curl https://qubixq.github.io/turkish-prayer-times/aksaray.txt
+
+# Bayburt:
+curl https://qubixq.github.io/turkish-prayer-times/bayburt.txt
+
+# Karaman:
+curl https://qubixq.github.io/turkish-prayer-times/karaman.txt
+
+# Kırıkkale:
+curl https://qubixq.github.io/turkish-prayer-times/kirikkale.txt
+
+# Batman:
+curl https://qubixq.github.io/turkish-prayer-times/batman.txt
+
+# Şırnak:
+curl https://qubixq.github.io/turkish-prayer-times/sirnak.txt
+
+# Bartın:
+curl https://qubixq.github.io/turkish-prayer-times/bartin.txt
+
+# Ardahan:
+curl https://qubixq.github.io/turkish-prayer-times/ardahan.txt
+
+# Iğdır:
+curl https://qubixq.github.io/turkish-prayer-times/igdir.txt
+
+# Yalova:
+curl https://qubixq.github.io/turkish-prayer-times/yalova.txt
+
+# Karabük:
+curl https://qubixq.github.io/turkish-prayer-times/karabuk.txt
+
+# Kilis:
+curl https://qubixq.github.io/turkish-prayer-times/kilis.txt
+
+# Osmaniye:
+curl https://qubixq.github.io/turkish-prayer-times/osmaniye.txt
+
+# Düzce:
+curl https://qubixq.github.io/turkish-prayer-times/duzce.txt
+
+# Command recommendation!
+# If you want to search by city, you can use the "grep" command. for example:
+curl https://qubixq.github.io/turkish-prayer-times/index.txt | grep -i ankara
