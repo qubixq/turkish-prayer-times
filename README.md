@@ -54,7 +54,3 @@ All 81 Turkish cities are supported using lowercase names:
 pip install -r requirements.txt
 python turkish_prayer_times_generator.py
 ```
-
-## API Source
-
-Prayer times are fetched from the Diyanet İşleri Başkanlığı API via ezanvakti.herokuapp.com.
