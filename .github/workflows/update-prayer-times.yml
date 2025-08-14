@@ -1,0 +1,42 @@
+name: Update Prayer Times
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Run daily at 3 AM UTC (6 AM Turkey time)
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-prayer-times:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Generate prayer times
+      run: python turkish_prayer_times_generator.py
+      
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+    - name: Commit and push changes
+      run: |
+        git add *.txt
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update prayer times - $(date +'%Y-%m-%d %H:%M UTC')"
+          git push
+        fi
