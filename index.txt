@@ -243,4 +243,4 @@ curl https://qubixq.github.io/turkish-prayer-times/duzce.txt
 
 # Command recommendation!
 # If you want to search by city, you can use the "grep" command. for example:
-curl https://qubixq.github.io/turkish-prayer-times/index.txt | grep -i ankara
+curl -s https://qubixq.github.io/turkish-prayer-times/index.txt | grep -i ankara
